@@ -13,5 +13,10 @@
   },
   "author": "Miquel Català",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/kelo95/tenda#readme"
+  "homepage": "https://bitbucket.org/kelo95/tenda#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7"
+  }
 }
