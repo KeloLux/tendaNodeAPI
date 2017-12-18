@@ -1,0 +1,17 @@
+{
+  "name": "tenda",
+  "version": "1.0.0",
+  "description": "Projecte intermodular de la Tenda de productes",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kelo95@bitbucket.org/kelo95/tenda.git"
+  },
+  "author": "Miquel Català",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/kelo95/tenda#readme"
+}
