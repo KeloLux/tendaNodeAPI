@@ -4,12 +4,12 @@
   "description": "Projecte intermodular de la Tenda de productes",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://kelo95@bitbucket.org/kelo95/tenda.git"
+    "url": "git+https://github.com/KeloLux/tendaNodeAPI.git"
   },
   "author": "Miquel Català",
   "license": "ISC",
@@ -17,6 +17,9 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "mongoose": "^4.13.7"
+    "mongoose": "^4.13.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
   }
 }

@@ -1,15 +1,11 @@
 'use strict'
-var express = require('express');
-var app = express();
+const express = require('express');
 const bodyParser = require('body-parser');
+var app = express();
+var api = require('./routes');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
-app.get('/login/:user_name', (req, res) => {
-    rss.send({
-        message: `Hola ${req.params.user_name}`
-    })
-});
+app.use('/v1', api);
 
 module.exports = app
