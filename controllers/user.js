@@ -1,10 +1,11 @@
 const User = require('../models/user');
 
-function Login(req, res) {
+
+exports.Login = function (req, res) {
     let user = new User();
     res.send({ message: "Login" });
 }
-function Register(req, res) {
+exports.Register = function (req, res) {
     console.log(req.body);
     let user = new User();
     user.email = 'email@esmil.com'
@@ -14,8 +15,4 @@ function Register(req, res) {
         else
             res.status(200).send({ user: userStored })
     })
-
-}
-module.exports = {
-    Login, Register
 }

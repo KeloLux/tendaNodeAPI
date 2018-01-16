@@ -1,6 +1,7 @@
 const Product = require('../models/product.js');
 
-function Create() {
+exports.Create = function (req, res) {
+    console.log("Create Product");
     let product = new Product();
     product.name = req.body.name
     product.picture = req.body.picture
@@ -16,10 +17,6 @@ function Create() {
     })
 }
 
-function Get(req, res) {
-    res.send({ message: "get" });
-}
-
-module.exports = {
-    Create, Get
+exports.Get = function (req, res) {
+    res.send({ message: "Get Product method" });
 }

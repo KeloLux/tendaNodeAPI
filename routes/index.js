@@ -2,20 +2,21 @@ const express = require('express');
 const userCtrl = require('../controllers/user');
 const productCtrl = require('../controllers/product');
 const shopCtrl = require('../controllers/shop');
-const api = express.Router();
-
-api.get('/login', userCtrl.Login);
-api.post('/register', userCtrl.Register);
-
-api.get('/product', productCtrl.Get);
-api.post('/product', productCtrl.Create);
-
-api.get('/shop', shopCtrl.Get);
-api.post('/shop', shopCtrl.Create);
+const router = express.Router();
 
 
-api.get('/', (req, res) => {
-    res.send({ message: `Hola mundo` })
+router.get('/login', userCtrl.Login);
+router.post('/register', userCtrl.Register);
+
+router.get('/product', productCtrl.Get);
+router.post('/product', productCtrl.Create);
+
+router.get('/shop', shopCtrl.Get);
+router.post('/shop', shopCtrl.Create);
+
+
+router.get('*', (req, res) => {
+    res.send({ message: 'Welcome to API v1' })
 });
 
-module.exports = api
+module.exports = router

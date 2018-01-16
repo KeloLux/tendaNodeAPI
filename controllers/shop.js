@@ -13,6 +13,6 @@ exports.Create = function (req, res) {
     })
 }
 exports.Get = function (req, res) {
-    res.send({ message: "get" });
+    res.send({ message: "Get Shop method" });
 }
 
