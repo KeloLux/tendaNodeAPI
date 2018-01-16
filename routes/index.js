@@ -1,14 +1,14 @@
 const express = require('express');
 const userCtrl = require('../controllers/user');
-const articleCtrl = require('../controllers/article');
+const productCtrl = require('../controllers/product');
 const shopCtrl = require('../controllers/shop');
 const api = express.Router();
 
 api.get('/login', userCtrl.Login);
 api.post('/register', userCtrl.Register);
 
-api.get('/article', articleCtrl.Get);
-api.post('/article', articleCtrl.Create);
+api.get('/product', productCtrl.Get);
+api.post('/product', productCtrl.Create);
 
 api.get('/shop', shopCtrl.Get);
 api.post('/shop', shopCtrl.Create);
