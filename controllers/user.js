@@ -1,18 +1,23 @@
 const User = require('../models/user');
 
 
-exports.Login = function (req, res) {
+function Login(req, res) {
     let user = new User();
     res.send({ message: "Login" });
 }
-exports.Register = function (req, res) {
+
+function Register(req, res) {
     console.log(req.body);
     let user = new User();
-    user.email = 'email@esmil.com'
+    user.email = req.body.email
     user.save((err, userStored) => {
         if (err)
             res.status(500).send({ message: 'Error: ' + err })
         else
             res.status(200).send({ user: userStored })
     })
+}
+
+module.exports = {
+    Login, Register
 }
