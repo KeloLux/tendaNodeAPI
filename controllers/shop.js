@@ -1,6 +1,6 @@
 const Shop = require('../models/shop.js');
 
-function Create(req, res) {
+exports.Create = function (req, res) {
     console.log("Create Shop");
     let shop = new Shop();
     shop.name = req.body.name;
@@ -12,13 +12,7 @@ function Create(req, res) {
             res.status(201).send()
     })
 }
-
-function Get(req, res) {
+exports.Get = function (req, res) {
     res.send({ message: "Get Shop method" });
 }
 
-
-
-module.exports = {
-    Create, Get
-}
