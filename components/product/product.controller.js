@@ -1,25 +1,59 @@
-const Product = require('../models/product.js');
+const ProductModel = require('./product.model')
+// ============
 
-function Create(req, res) {
-    console.log('Create Product');
-    let product = new Product();
-    product.name = req.body.name;
-    product.picture = req.body.picture;
-    product.price = req.body.price;
-    product.category = req.body.category;
-    product.description = req.body.description;
-
-    product.save((err, productStored) => {
-        if (err) res.status(500).send({ message: 'Error: ' + err });
-        else res.status(201).send();
-    });
+// Creates a new product
+const createProduct = (req, res) => {
+  console.log(req.body)
+  const email = req.body.email
+  const password = req.body.password
+  if (!email && !password) { res.json({ message: 'No email nor password provided.' }) }
+  else if (!email) res.json({ message: 'No email provided.' })
+  else if (!password) res.json({ message: 'No password provided.' })
+  else {
+    const newProduct = new ProductModel({
+      email: email,
+      password: password
+    })
+    newProduct.save(err => {
+      if (err) return res.json({ message: 'Email already exists.' })
+      res.json({ message: 'Product successfully created.' })
+    })
+  }
 }
+// ==================
 
-function Get(req, res) {
-    res.send({ message: 'Get Product method' });
+// Returns a single product
+const getSingleProduct = (req, res) => {
+  // TODO: add logic
+  console.log('getSingleProduct')
+  res.status(200).send({ message: 'You said get product' })
 }
+// =====================
+
+// Returns all products
+const getAllProducts = (req, res) => {
+  // TODO: add logic
+  console.log('getAllProducts')
+  res.status(200).send({ message: 'You said all products' })
+}
+// =====================
+
+// Updates a product
+const updateProduct = (req, res) => {
+  // TODO: add logic
+}
+// =====================
+
+// Deletes a product
+const deleteProduct = (req, res) => {
+  // TODO: add logic
+}
+// =====================
 
 module.exports = {
-    Create,
-    Get
-};
+  createProduct: createProduct,
+  getSingleProduct: getSingleProduct,
+  getAllProducts: getAllProducts,
+  updateProduct: updateProduct,
+  deleteProduct: deleteProduct
+}

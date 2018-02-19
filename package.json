@@ -1,33 +1,41 @@
 {
-    "name": "tenda",
-    "version": "1.0.0",
-    "description": "Projecte intermodular de la Tenda de productes",
-    "main": "main.js",
-    "scripts": {
-        "start": "nodemon app/main.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/KeloLux/tendaNodeAPI.git"
-    },
-    "author": "Miquel Català",
-    "license": "ISC",
-    "homepage": "https://bitbucket.org/kelo95/tenda#readme",
-    "dependencies": {
-        "body-parser": "^1.18.2",
-        "express": "^4.16.2",
-        "mongoose": "^4.13.9",
-        "bcrypt": "^1.0.2",
-        "bcrypt-nodejs": "0.0.3",
-        "dotenv": "^4.0.0",
-        "jsonwebtoken": "^7.4.1",
-        "nodemon": "^1.11.0"
-    },
-    "devDependencies": {
-        "nodemon": "^1.14.11",
-        "eslint": "^3.19.0",
-        "eslint-config-airbnb-base": "^11.2.0",
-        "eslint-plugin-import": "^2.2.0"
-    }
+  "name": "tenda",
+  "version": "1.0.0",
+  "description": "Projecte intermodular de la Tenda de productes",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeloLux/tendaNodeAPI.git"
+  },
+  "author": "Miquel Català",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/kelo95/tenda#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.9",
+    "bcrypt": "^1.0.2",
+    "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^4.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.14.11",
+    "prettier": "^1.10.2",
+    "prettier-eslint": "^8.8.1"
+  }
 }

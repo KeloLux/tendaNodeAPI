@@ -1,24 +1,59 @@
-const Shop = require('../models/shop.js');
+const ShopModel = require('./shop.model')
+// ============
 
-function Create(req, res) {
-    console.log("Create Shop");
-    let shop = new Shop();
-    shop.name = req.body.name;
-    shop.location = req.body.location;
-    var promise = shop.save(function (err, shopStored) {
-        if (err)
-            res.status(500).send({ message: 'Error: ' + err })
-        else
-            res.status(201).send()
+// Creates a new shop
+const createShop = (req, res) => {
+  console.log(req.body)
+  const email = req.body.email
+  const password = req.body.password
+  if (!email && !password) { res.json({ message: 'No email nor password provided.' }) }
+  else if (!email) res.json({ message: 'No email provided.' })
+  else if (!password) res.json({ message: 'No password provided.' })
+  else {
+    const newShop = new ShopModel({
+      email: email,
+      password: password
     })
+    newShop.save(err => {
+      if (err) return res.json({ message: 'Email already exists.' })
+      res.json({ message: 'Shop successfully created.' })
+    })
+  }
 }
+// ==================
 
-function Get(req, res) {
-    res.send({ message: "Get Shop method" });
+// Returns a single shop
+const getSingleShop = (req, res) => {
+  // TODO: add logic
+  console.log('getSingleShop')
+  res.status(200).send({ message: 'You said get shop' })
 }
+// =====================
 
+// Returns all shops
+const getAllShops = (req, res) => {
+  // TODO: add logic
+  console.log('getAllShops')
+  res.status(200).send({ message: 'You said all shops' })
+}
+// =====================
 
+// Updates a shop
+const updateShop = (req, res) => {
+  // TODO: add logic
+}
+// =====================
+
+// Deletes a shop
+const deleteShop = (req, res) => {
+  // TODO: add logic
+}
+// =====================
 
 module.exports = {
-    Create, Get
+  createShop: createShop,
+  getSingleShop: getSingleShop,
+  getAllShops: getAllShops,
+  updateShop: updateShop,
+  deleteShop: deleteShop
 }
