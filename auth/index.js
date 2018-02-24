@@ -52,9 +52,9 @@ const authUser = (req, res) => {
           user.comparePassword(password, function (err, isMatch) {
             if (isMatch && !err) {
               const token = jwt.sign(user, secred, {
-                expiresIn: 1 // in seconds
+                expiresIn: 10000 // in seconds
               })
-              res.json({ message: 'JWT ' + token })
+              res.json({ message: token })
             }
             else {
               res.send({ message: 'Wrong password.' })

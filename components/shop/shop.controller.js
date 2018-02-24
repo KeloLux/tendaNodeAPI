@@ -6,54 +6,64 @@ const createShop = (req, res) => {
   console.log(req.body)
   const email = req.body.email
   const password = req.body.password
-  if (!email && !password) { res.json({ message: 'No email nor password provided.' }) }
-  else if (!email) res.json({ message: 'No email provided.' })
-  else if (!password) res.json({ message: 'No password provided.' })
-  else {
-    const newShop = new ShopModel({
-      email: email,
-      password: password
-    })
-    newShop.save(err => {
-      if (err) return res.json({ message: 'Email already exists.' })
-      res.json({ message: 'Shop successfully created.' })
-    })
-  }
+  const newShop = new ShopModel({
+    email: email,
+    password: password
+  })
+  newShop.save(err => {
+    if (err) return res.json({ message: 'Shop already exists.' })
+    res.json({ message: 'Shop successfully created.' })
+  })
 }
 // ==================
 
-// Returns a single shop
-const getSingleShop = (req, res) => {
-  // TODO: add logic
-  console.log('getSingleShop')
-  res.status(200).send({ message: 'You said get shop' })
-}
-// =====================
-
 // Returns all shops
-const getAllShops = (req, res) => {
+const getShops = (req, res) => {
   // TODO: add logic
-  console.log('getAllShops')
-  res.status(200).send({ message: 'You said all shops' })
+  if (req.params.id) {
+    ShopModel.findOne({ email: req.params.id }, (err, shop) => {
+      if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else return res.status(200).send({ shop: shop })
+    })
+  }
+  else {
+    ShopModel.find({}, (err, shop) => {
+      if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else return res.status(200).send({ shops: shop })
+    })
+  }
 }
 // =====================
 
 // Updates a shop
 const updateShop = (req, res) => {
-  // TODO: add logic
+  ShopModel.findOneAndUpdate(
+    { email: req.params.id },
+    req.body,
+    (err, shop) => {
+      if (err) {
+        return res.status(500).send({ message: 'Shop non exists.' + err })
+      }
+      else {
+        return res.status(200).send({ message: 'Shop update successfully.' })
+      }
+    }
+  )
 }
 // =====================
 
 // Deletes a shop
 const deleteShop = (req, res) => {
-  // TODO: add logic
+  ShopModel.findOneAndUpdate({ email: req.params.id }, (err, shop) => {
+    if (err) return res.status(500).send({ message: 'Shop non exists.' + err })
+    else return res.status(200).send({ message: 'Shop delete successfully.' })
+  })
 }
 // =====================
 
 module.exports = {
   createShop: createShop,
-  getSingleShop: getSingleShop,
-  getAllShops: getAllShops,
+  getShops: getShops,
   updateShop: updateShop,
   deleteShop: deleteShop
 }
