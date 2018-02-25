@@ -21,6 +21,6 @@ const shopRoutes = require('../components/shop/shop.routes')
 routes.use('/shops', shopRoutes)
 
 const productRoutes = require('../components/product/product.routes')
-routes.use('/shops', productRoutes)
+routes.use('/products', productRoutes)
 
 module.exports = routes

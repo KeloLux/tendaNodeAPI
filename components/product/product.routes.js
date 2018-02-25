@@ -11,7 +11,7 @@ const productController = require('./product.controller')
 
 // Connecting product routes to product controllers
 productRoutes
-  .post('/', productController.createProduct) // creates a new product
+  .post('/', isAuth, productController.createProduct) // creates a new product
   .get('/:id?', isAuth, productController.getProducts) // returns a single product or all
   .put('/:id', isAuth, productController.updateProduct) // updates a single product
   .delete('/:id', isAuth, productController.deleteProduct) // deletes a signle product

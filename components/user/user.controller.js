@@ -1,25 +1,23 @@
 // Dependencies
 const UserModel = require('./user.model')
 // ============
-
+// login is in POST /auth
 // Creates a new user
 const createUser = (req, res) => {
   console.log(req.body)
-  const email = req.body.email
+  const nick = req.body.nick
   const password = req.body.password
-  if (!email && !password) {
-    res.status(400).send({ message: 'No email nor password provided.' })
+  if (!nick && !password) {
+    res.status(400).send({ message: 'No nick nor password provided.' })
   }
-  else if (!email) res.status(400).send({ message: 'No email provided.' })
+  else if (!nick) res.status(400).send({ message: 'No nick provided.' })
   else if (!password) res.status(400).send({ message: 'No password provided.' })
   else {
-    const newUser = new UserModel({
-      email: email,
-      password: password
-    })
-    newUser.save(err => {
-      if (err) return res.status(500).send({ message: 'Email already exists.' })
-      res.status(200).send({ message: 'User successfully created.' })
+    UserModel.create(req.body, (err, user) => {
+      if (err) {
+        return res.status(500).send({ message: 'Error: ' + err })
+      }
+      else res.status(200).send({ message: 'User successfully created.' })
     })
   }
 }
@@ -29,7 +27,7 @@ const createUser = (req, res) => {
 const getUsers = (req, res) => {
   // TODO: add logic
   if (req.params.id) {
-    UserModel.findOne({ email: req.params.id }, (err, user) => {
+    UserModel.findOne({ _id: req.params.id }, (err, user) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
       else return res.status(200).send({ user: user })
     })
@@ -45,27 +43,25 @@ const getUsers = (req, res) => {
 
 // Updates a user
 const updateUser = (req, res) => {
-  UserModel.findOneAndUpdate(
-    { email: req.params.id },
-    req.body,
-    (err, user) => {
-      if (err) {
-        return res.status(500).send({ message: 'Email non exists.' + err })
-      }
-      else {
-        return res.status(200).send({ message: 'User update successfully.' })
-      }
+  console.log(req.body.password)
+  UserModel.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
+    if (err) {
+      return res.status(500).send({ message: 'Email non exists.' + err })
     }
-  )
+    else {
+      return res.status(200).send({ message: 'User update successfully.' })
+    }
+  })
 }
 // =====================
 
 // Deletes a user
 const deleteUser = (req, res) => {
-  UserModel.findOneAndUpdate({ email: req.params.id }, (err, user) => {
+  UserModel.findByIdAndRemove(req.params.id, (err, user) => {
     if (err) return res.status(500).send({ message: 'Email non exists.' + err })
     else return res.status(200).send({ message: 'User delete successfully.' })
   })
+  console.log('object')
 }
 // =====================
 

@@ -10,15 +10,14 @@ const isAuth = (req, res, next) => {
       message: 'You need to provide a token to access this resource.'
     })
   }
-  console.log(token)
   jwt.verify(token, secred, (err, jwtPayload) => {
     if (err) {
-      return res.json({
+      return res.status(400).send({
         message: 'Authentication Error : ' + err.message
       })
     }
     userModel.findOne({ id: jwtPayload._id }, (err, user) => {
-      if (err) return res.json({ message: 'Error L13: ' + err })
+      if (err) return res.status(500).send({ message: 'Error L13: ' + err })
       next()
     })
   })
@@ -26,38 +25,39 @@ const isAuth = (req, res, next) => {
 
 // =========================
 
-// Authenticate using email and password and respond with a JWT
+// Authenticate using nick and password and respond with a JWT
 
 const userModel = require('../components/user/user.model')
 
 const authUser = (req, res) => {
-  const email = req.body.email
+  const nick = req.body.nick
   const password = req.body.password
-  if (!email && !password) {
-    res.json({ message: 'No email nor password provided.' })
+  if (!nick && !password) {
+    res.status(400).send({ message: 'No nick nor password provided.' })
   }
-  else if (!email) res.json({ message: 'No email provided.' })
-  else if (!password) res.json({ message: 'No password provided.' })
+  else if (!nick) res.status(400).send({ message: 'No nick provided.' })
+  else if (!password) res.status(400).send({ message: 'No password provided.' })
   else {
     userModel.findOne(
       {
-        email: email
+        nick: nick
       },
       (err, user) => {
         if (err) throw err
         if (!user) {
-          res.send({ message: 'Email does not exist.' })
+          res.status(500).send({ message: 'Email does not exist.' })
         }
         else {
           user.comparePassword(password, function (err, isMatch) {
+            console.log(err)
             if (isMatch && !err) {
               const token = jwt.sign(user, secred, {
                 expiresIn: 10000 // in seconds
               })
-              res.json({ message: token })
+              res.status(200).send({ message: token })
             }
             else {
-              res.send({ message: 'Wrong password.' })
+              res.status(400).send({ message: 'Wrong password.' })
             }
           })
         }

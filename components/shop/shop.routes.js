@@ -11,7 +11,7 @@ const shopController = require('./shop.controller')
 
 // Connecting shop routes to shop controllers
 shopRoutes
-  .post('/', shopController.createShop) // creates a new shop
+  .post('/', isAuth, shopController.createShop) // creates a new shop
   .get('/:id?', isAuth, shopController.getShops) // returns a single shop or all shops
   .put('/:id', isAuth, shopController.updateShop) // updates a single shop
   .delete('/:id', isAuth, shopController.deleteShop) // deletes a signle shop
