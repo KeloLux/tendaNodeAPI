@@ -14,12 +14,13 @@ routes
   })
   .post('/auth', authUser)
 
+// http://localhost:3030/api/users
 const userRoutes = require('../components/user/user.routes')
 routes.use('/users', userRoutes)
-
+// http://localhost:3030/api/shops
 const shopRoutes = require('../components/shop/shop.routes')
 routes.use('/shops', shopRoutes)
-
+// http://localhost:3030/api/products
 const productRoutes = require('../components/product/product.routes')
 routes.use('/products', productRoutes)
 
