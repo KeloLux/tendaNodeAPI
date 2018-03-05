@@ -12,6 +12,11 @@
     "type": "git",
     "url": "git+https://github.com/KeloLux/tendaNodeAPI.git"
   },
+  "apidoc": {
+    "name": "Tenda",
+    "description": "Documentación de rutas",
+    "url": "http://localhost:3000/api"
+  },
   "author": "Miquel Català",
   "license": "ISC",
   "homepage": "https://bitbucket.org/kelo95/tenda#readme",

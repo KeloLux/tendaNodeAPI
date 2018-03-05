@@ -10,7 +10,9 @@ const productController = require('./product.controller')
 // =============
 
 // Connecting product routes to product controllers
+
 productRoutes
+
   .post('/', isAuth, productController.createProduct) // creates a new product
   .get('/:id?', isAuth, productController.getProducts) // returns a single product or all
   .put('/:id', isAuth, productController.updateProduct) // updates a single product

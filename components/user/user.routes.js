@@ -9,10 +9,9 @@ const isAuth = require('../../auth').isAuth
 const userController = require('./user.controller')
 // =============
 
-// Connecting user routes to user controllers
 userRoutes
   .post('/', isAuth, userController.createUser) // creates a new user
-  .get('/:id?', isAuth, userController.getUsers) // returns a single user or ALL
+  .get('/:id?', isAuth, userController.getUsers) // returns a single user or all
   .put('/:id', isAuth, userController.updateUser) // updates a single user
   .delete('/:id', isAuth, userController.deleteUser) // deletes a signle user
 // ==========================================

@@ -12,7 +12,7 @@ const shopController = require('./shop.controller')
 // Connecting shop routes to shop controllers
 shopRoutes
   .post('/', isAuth, shopController.createShop) // creates a new shop
-  .get('/:id?', isAuth, shopController.getShops) // returns a single shop or all shops
+  .get('/:id?', isAuth, shopController.getShops) // returns a single shop or all
   .put('/:id', isAuth, shopController.updateShop) // updates a single shop
   .delete('/:id', isAuth, shopController.deleteShop) // deletes a signle shop
 // ==========================================

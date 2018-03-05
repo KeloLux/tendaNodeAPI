@@ -45,7 +45,7 @@ const authUser = (req, res) => {
       (err, user) => {
         if (err) throw err
         if (!user) {
-          res.status(500).send({ message: 'Email does not exist.' })
+          res.status(400).send({ message: 'Nick does not exist.' })
         }
         else {
           user.comparePassword(password, function (err, isMatch) {
