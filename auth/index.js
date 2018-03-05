@@ -33,10 +33,10 @@ const authUser = (req, res) => {
   const nick = req.body.nick
   const password = req.body.password
   if (!nick && !password) {
-    res.status(400).send({ message: 'No nick nor password provided.' })
+    res.status(403).send({ message: 'No nick nor password provided.' })
   }
-  else if (!nick) res.status(400).send({ message: 'No nick provided.' })
-  else if (!password) res.status(400).send({ message: 'No password provided.' })
+  else if (!nick) res.status(403).send({ message: 'No nick provided.' })
+  else if (!password) res.status(403).send({ message: 'No password provided.' })
   else {
     userModel.findOne(
       {
@@ -45,11 +45,11 @@ const authUser = (req, res) => {
       (err, user) => {
         if (err) throw err
         if (!user) {
-          res.status(400).send({ message: 'Nick does not exist.' })
+          res.status(403).send({ message: 'Nick does not exist.' })
         }
         else {
           user.comparePassword(password, function (err, isMatch) {
-            console.log(err)
+            // console.log(err)
             if (isMatch && !err) {
               const token = jwt.sign(user, secred, {
                 expiresIn: 10000 // in seconds
@@ -57,7 +57,7 @@ const authUser = (req, res) => {
               res.status(200).send({ message: token })
             }
             else {
-              res.status(400).send({ message: 'Wrong password.' })
+              res.status(403).send({ message: 'Wrong password.' })
             }
           })
         }

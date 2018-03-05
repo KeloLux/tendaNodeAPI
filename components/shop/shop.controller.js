@@ -4,7 +4,7 @@ const ShopModel = require('./shop.model')
 // Creates a new shop
 const createShop = (req, res) => {
   ShopModel.create(req.body, (err, user) => {
-    if (err) return res.json({ message: 'Shop already exists.' })
+    if (err) return res.status(500).send({ message: 'Shop already exists.' })
     res.json({ message: 'Shop successfully created.' })
   })
 }
@@ -16,12 +16,18 @@ const getShops = (req, res) => {
   if (req.params.id) {
     ShopModel.findOne({ _id: req.params.id }, (err, shop) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!shop) {
+        return res.status(404).send({ message: 'Shop non exists.' })
+      }
       else return res.status(200).send({ shop: shop })
     })
   }
   else {
     ShopModel.find({}, (err, shop) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!shop) {
+        return res.status(404).send({ message: 'Shop non exists.' })
+      }
       else return res.status(200).send({ shops: shop })
     })
   }
@@ -32,6 +38,9 @@ const getShops = (req, res) => {
 const updateShop = (req, res) => {
   ShopModel.findByIdAndUpdate(req.params.id, req.body, (err, shop) => {
     if (err) return res.status(500).send({ message: 'Shop non exists.' + err })
+    else if (!shop) {
+      return res.status(404).send({ message: 'Shop non exists.' })
+    }
     else return res.status(200).send({ message: 'Shop update successfully.' })
   })
 }
@@ -41,6 +50,9 @@ const updateShop = (req, res) => {
 const deleteShop = (req, res) => {
   ShopModel.findByIdAndRemove(req.params.id, (err, shop) => {
     if (err) return res.status(500).send({ message: 'Shop non exists.' + err })
+    else if (!shop) {
+      return res.status(404).send({ message: 'Shop non exists.' })
+    }
     else return res.status(200).send({ message: 'Shop delete successfully.' })
   })
 }

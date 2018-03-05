@@ -3,8 +3,8 @@ const ProductModel = require('./product.model')
 
 // Creates a new product
 const createProduct = (req, res) => {
-  ProductModel.create(req.body, (err, user) => {
-    if (err) return res.json({ message: 'Product already exists.' })
+  ProductModel.create(req.body, (err, product) => {
+    if (err) return res.status(500).send({ message: 'Product already exists.' })
     res.json({ message: 'Product successfully created.' })
   })
 }
@@ -16,12 +16,18 @@ const getProducts = (req, res) => {
   if (req.params.id) {
     ProductModel.findOne({ _id: req.params.id }, (err, product) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!product) {
+        return res.status(404).send({ message: 'Product non exists.' })
+      }
       else return res.status(200).send({ product: product })
     })
   }
   else {
     ProductModel.find({}, (err, product) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!product) {
+        return res.status(404).send({ message: 'Product non exists.' })
+      }
       else return res.status(200).send({ products: product })
     })
   }
@@ -32,7 +38,10 @@ const getProducts = (req, res) => {
 const updateProduct = (req, res) => {
   ProductModel.findByIdAndUpdate(req.params.id, req.body, (err, product) => {
     if (err) {
-      return res.status(500).send({ message: 'Product non exists.' + err })
+      return res.status(500).send({ message: 'Error: ' + err })
+    }
+    else if (!product) {
+      return res.status(404).send({ message: 'Product non exists.' })
     }
     else {
       return res.status(200).send({ message: 'Product update successfully.' })
@@ -44,8 +53,15 @@ const updateProduct = (req, res) => {
 // Deletes a product
 const deleteProduct = (req, res) => {
   ProductModel.findByIdAndRemove(req.params.id, (err, product) => {
-    if (err) { return res.status(500).send({ message: 'Product non exists.' + err }) }
-    else { return res.status(200).send({ message: 'Product delete successfully.' }) }
+    if (err) {
+      return res.status(500).send({ message: 'Product non exists.' + err })
+    }
+    else if (!product) {
+      return res.status(404).send({ message: 'Product non exists.' })
+    }
+    else {
+      return res.status(200).send({ message: 'Product delete successfully.' })
+    }
   })
 }
 // =====================

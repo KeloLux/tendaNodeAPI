@@ -4,7 +4,7 @@ const UserModel = require('./user.model')
 // login is in POST /auth
 // Creates a new user
 const createUser = (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const nick = req.body.nick
   const password = req.body.password
   if (!nick && !password) {
@@ -29,12 +29,18 @@ const getUsers = (req, res) => {
   if (req.params.id) {
     UserModel.findOne({ _id: req.params.id }, (err, user) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!user) {
+        return res.status(404).send({ message: 'User non exists.' })
+      }
       else return res.status(200).send({ user: user })
     })
   }
   else {
     UserModel.find({}, (err, user) => {
       if (err) return res.status(500).send({ message: 'Error : ' + err })
+      else if (!user) {
+        return res.status(404).send({ message: 'User non exists.' })
+      }
       else return res.status(200).send({ users: user })
     })
   }
@@ -48,6 +54,9 @@ const updateUser = (req, res) => {
     if (err) {
       return res.status(500).send({ message: 'Email non exists.' + err })
     }
+    else if (!user) {
+      return res.status(404).send({ message: 'User non exists.' })
+    }
     else {
       return res.status(200).send({ message: 'User update successfully.' })
     }
@@ -59,6 +68,9 @@ const updateUser = (req, res) => {
 const deleteUser = (req, res) => {
   UserModel.findByIdAndRemove(req.params.id, (err, user) => {
     if (err) return res.status(500).send({ message: 'Email non exists.' + err })
+    else if (!user) {
+      return res.status(404).send({ message: 'User non exists.' })
+    }
     else return res.status(200).send({ message: 'User delete successfully.' })
   })
   console.log('object')

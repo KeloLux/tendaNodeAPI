@@ -13,6 +13,10 @@ console.log(mongoose.connection.readyState)
 
 // Connect API routes to "/api" prefix
 const routes = require('./routes')
+
 app.use('/api', routes)
 
+app.use('*', (req, res) => {
+  res.status(404).send({ message: 'not found' })
+})
 module.exports = app
