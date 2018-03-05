@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon app/index.js",
+    "documentation": "apidoc -i components/  doc/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js src"
   },
